@@ -1,0 +1,115 @@
+\chapter{Задание №1}
+
+Представить следующие списки в виде списочных ячеек:
+\begin{enumerate}
+    \item '(open close halph)
+    \item '((open1) (close2) (halph3))
+    \item '((one) for all (and (me (for you))))
+    \item '((TOOL) (call))
+    \item '((TOOL1) ((call2)) ((sell)))
+    \item '(((TOOL) (call)) ((sell)))
+\end{enumerate}
+
+\imgScale{0.35}{falp_lab_01_1}{Решение задания №1}
+
+
+\chapter{Задание №2}
+
+Используя только функции CAR и CDR, написать выражения,
+возвращающие:
+\begin{itemize}
+    \item второй;
+    \item третий;
+    \item четвертый элементы заданного списка.
+\end{itemize}
+
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{lstlisting}[label=lst:task_2,caption=Решение задания №2]
+    (car (cdr '(a b c d e f)))
+    (car (cdr (cdr '(a b c d e f))))
+    (car (cdr (cdr (cdr '(a b c d e f)))))
+\end{lstlisting}
+\end{center}
+
+
+\chapter{Задание №3}
+
+Что будет в результате вычисления выражений?
+
+\begin{enumerate}
+    \item (CAADR '((blue cube) (red pyramid)))
+    \item (CDAR '((abc) (def) (ghi)))
+    \item (CADR '((abc) (def) (ghi)))
+    \item (CADDR '((abc) (def) (ghi)))
+\end{enumerate}
+
+Результаты:
+
+\begin{enumerate}
+    \item red
+    \item Nil
+    \item (def)
+    \item (ghi)
+\end{enumerate}
+
+\chapter{Задание №4}
+
+Напишите результат вычисления выражений и объясните как он получен:
+
+\begin{enumerate}
+    \item (list 'Fred 'and 'Wilma) --- (Fred and Wilma)
+    \item (cons 'Fred '(and Wilma)) --- (Fred and Wilma)
+    \item (list 'Fred '(and Wilma)) --- (Fred (and Wilma))
+    \item (cons 'Fred '(Wilma)) --- (Fred Wilma)
+    \item (cons Nil Nil) --- (Nil)
+    \item (list Nil Nil) --- (Nil Nil)
+    \item (cons T Nil) --- (T)
+    \item (list T Nil) --- (T Nil)
+    \item (cons Nil T) --- (Nil . T)
+    \item (list Nil T) --- (Nil T)
+    \item (list Nil) --- (Nil)
+    \item (cons T (list Nil)) --- (T Nil)
+    \item (cons '(T) Nil) --- ((T))
+    \item (list '(T) Nil) --- ((T) Nil)
+    \item (list '(one two) '(free temp)) --- ((one two) (free temp))
+    \item (cons '(one two) '(free temp)) --- ((one two) free temp)
+\end{enumerate}
+
+\chapter{Задание №5}
+
+Написать лямбда-выражение и соответствующую функцию.
+\begin{enumerate}
+    \item Написать функцию (f arl ar2 ar3 ar4), возвращающую список: ((arl ar2) (ar3 ar4)).
+    \item Написать функцию (f arl ar2), возвращающую ((arl) (ar2)).
+    \item Написать функцию (f arl), возвращающую (((arl))).
+    \item Представить результаты в виде списочных ячеек.
+\end{enumerate}
+
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{lstlisting}[label=lst:d_l_rec,caption=Решение задания №5]
+    ; #1
+    ; lambda
+    (lambda (ar1 ar2 ar3 ar4) (list (list ar1 ar2) (list ar3 ar4)))
+    
+    ; func
+    (defun f1 (ar1 ar2 ar3 ar4) (list (list ar1 ar2) (list ar3 ar4)))
+    
+    ; #2
+    ; lambda
+    (lambda (ar1 ar2) (list (list ar1) (list ar2)))
+    
+    ;func
+    (defun f2 (ar1 ar2) (list (list ar1) (list ar2)))
+    
+    ; #3
+    ; lambda
+    (lambda (ar1) (list (cons (list ar1) Nil)))
+    
+    ; func
+    (defun f3 (ar1) (list (cons (list ar1) Nil)))
+\end{lstlisting}
+\end{center}
+
+\imgScale{0.5}{falp_lab_01_5}{Решение задания №5}
