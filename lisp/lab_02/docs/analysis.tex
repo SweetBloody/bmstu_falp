@@ -1,0 +1,138 @@
+\textbf{Задание №1}
+
+Составить диаграмму вычисления следующих выражений:
+\begin{enumerate}
+    \item (equal 3 (abs - 3))
+    \item (equal (+ 1 2) 3)
+    \item (equal (* 4 7) 21)
+    \item (equal (* 2 3) (+ 7 2))
+    \item (equal (- 7 3) (* 3 2))
+    \item (equal (abs (- 2 4)) 3))
+\end{enumerate}
+
+\imgScale{0.5}{task_1_1}{Диаграмма №1}
+\imgScale{0.5}{task_1_2}{Диаграмма №2}
+\imgScale{0.5}{task_1_3}{Диаграмма №3}
+\imgScale{0.5}{task_1_4}{Диаграмма №4}
+\imgScale{0.5}{task_1_5}{Диаграмма №5}
+\imgScale{0.5}{task_1_6}{Диаграмма №6}
+\FloatBarrier
+
+
+\textbf{Задание №2}
+
+Написать функцию, вычисляющую гипотенузу прямоугольного
+треугольника по заданным катетам и составить диаграмму её вычисления.
+
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{lstlisting}[label=lst:task_2,caption=Код функции]
+    (defun gip (a b)
+    (sqrt (+ (* a a) (* b b))))
+\end{lstlisting}
+\end{center}
+
+\imgScale{0.5}{task_2}{Диаграмма вычисления функции gip}
+\FloatBarrier
+
+\clearpage
+\textbf{Задание №3}
+
+Каковы результаты вычисления следующих выражений? (объяснить возможную ошибку и варианты ее устранения)
+\begin{enumerate}
+    \item (list 'a c) --- The variable C is unbound.
+    \item (cons 'a (b c)) --- The variable C is unbound. The function COMMON-LISP-USER::B is undefined.
+    \item (cons 'a '(b c)) --- (a b c)
+    \item (caddr (1 2 3 4 5)) --- Execution of a form compiled with errors. Form: (1 2 3 4 5). Compile-time error: illegal function call.
+    \item (cons 'a 'b 'c) --- invalid number of arguments: 3.
+    \item (list 'a (b c)) --- The variable C is unbound. The function COMMON-LISP-USER::B is undefined.
+    \item (list a '(b c)) --- The variable A is unbound.
+    \item (list (+ 1 '(length '(1 2 3)))) --- The value (LENGTH '(1 2 3)) is not of type NUMBER when binding SB-KERNEL::Y.
+\end{enumerate}
+
+Объяснение ошибок и способы их устранения.
+\begin{enumerate}
+    \item The variable C is unbound (за 'c' не закреплено никакого значения). \textit{Устранение}: задать значение 'c'.
+    \item The function COMMON-LISP-USER::B is undefined. (не определена функция 'b'). \textit{Устранение}: определить функцию 'b'.
+    \item Illegal function call (некорректный вызов функции, так как в качестве названия функции написана 1). \textit{Устранение}: использовать 'quote' перед (1 2 3 4 5).
+    \item Invalid number of arguments: 3 (Некорректное количество аргументов функции cons). \textit{Устранение}: использовать только два аргумента.
+    \item The variable A is unbound (за 'a' не закреплено никакого значения). \textit{Устранение}: задать значение 'a'.
+    \item The value (LENGTH '(1 2 3)) is not of type NUMBER when binding SB-KERNEL::Y (чтобы можно было сложить 1 со вторым значением, оно должно быть числовым, но так как перед 'length' стоит 'quote', функция 'length' не выполняется, а остается как часть списка). \textit{Устранение}: убрать 'quote' перед 'length'.
+\end{enumerate}
+
+\textbf{Задание №4}
+
+Написать функцию longer\_then от двух списков-аргументов, которая возвращает Т, если первый аргумент имеет большую длину.
+
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{lstlisting}[label=lst:task_2,caption=Код функции]
+    (defun longer_than (a b)
+    (> (length a) (length b)))
+\end{lstlisting}
+\end{center}
+
+\textbf{Задание №5}
+
+Каковы результаты вычисления следующих выражений?
+\begin{enumerate}
+    \item (cons 3 (list 5 6)) --- (3 5 6)
+    \item (cons 3 '(list 5 6)) --- (3 list 5 6)
+    \item (list 3 'from 9 'lives (-- 9 3)) --- (3 from 9 lives 6)
+    \item (+ (length for 2 too)) --- The variable FOR is unbound
+    \item (car '(21 22 23)))  --- 21
+    \item (cdr '(cons is short for ans)) --- (is short for ans)
+    \item (car (list one two)) --- The variable ONE is unbound
+    \item (car (list 'one 'two)) --- one
+\end{enumerate}
+
+\textbf{Задание №6}
+
+Дана функция:
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{lstlisting}[label=lst:task_2,caption=Код функции]
+    (defun mystery (x) 
+    (list (second x) (first x)))
+\end{lstlisting}
+\end{center}
+Какие результаты вычисления следующих выражений?
+
+Все эти выражения выдадут ошибку, если за соответствующими атомами не закреплены никакие значения. Чтобы исправить именно эту ошибку, можно использовать 'quote' перед каждым таким атомом.
+\begin{enumerate}
+    \item (mystery (one two)) --- The variable TWO is unbound. The function COMMON-LISP-USER::ONE is undefined. Исправление: (mystery '(one two)), тогда вывод --- (two one).
+    \item (mystery one 'two)) --- The variable ONE is unbound. 
+    \item (mystery (last one two)) --- The variable ONE is unbound. The variable TWO is unbound. Исправление: использовать функцию 'list' (mystery (last one two)), вывод --- (two one).
+    \item (mystery free) --- The value FREE is not of type LIST.
+\end{enumerate}
+
+\textbf{Задание №7}
+
+Написать функцию, которая переводит температуру в системе Фаренгейта
+температуру по Цельсию (defum f-to-c (temp) …).
+
+Формулы: $c = 5/9*(f-32.0)$; $f= 9/5*c+32.0$.
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{lstlisting}[label=lst:task_2,caption=Код функции f-to-c]
+    (defun f-to-c (temp)
+    (* (/ 5 9) (- temp 32.0)))
+\end{lstlisting}
+\end{center}
+
+Как бы назывался роман Р.Брэдбери <<+451 по Фаренгейту>> в системе по Цельсию?
+
+\textit{Ответ}: 232 градуса по Цельсию.\newline
+
+\textbf{Задание №8}
+
+Каковы результаты вычисления следующих выражений?
+\begin{enumerate}
+    \item (list 'cons t NIL) --- (cons T NIL)
+    \item (eval (list 'cons t NIL)) --- (T)
+    \item (eval (eval (list 'cons t NIL))) --- The function COMMON-LISP:T is undefined.
+    \item (apply \#cons "(t NIL)) --- некорректный синтаксис, если\newline исправить "\ на ' и после \# написать ', то результатом будет (T).
+    \item (eval NIL) --- NIL
+    \item (list 'eval NIL) --- (EVAL NIL)
+    \item (eval (list 'eval NIL)) --- NIL
+\end{enumerate}
