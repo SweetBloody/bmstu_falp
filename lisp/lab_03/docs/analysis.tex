@@ -1,0 +1,145 @@
+\textbf{Задание №1}
+
+Написать функцию, которая принимает целое число и возвращает первое
+четное число, не меньшее аргумента.
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{lstlisting}[label=lst:task_1,caption=Код функции]
+    (defun f1 (x)
+    (if (= (rem x 2) 0) x (+ x 1)))
+\end{lstlisting}
+\end{center}
+
+\textbf{Задание №2}
+
+Написать функцию, которая принимает число и возвращает число
+того же знака, но с модулем на 1 больше модуля аргумента.
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{lstlisting}[label=lst:task_2,caption=Код функции]
+    (defun f2 (x)
+    (if (>= x 0) (+ x 1) (- x 1)))
+\end{lstlisting}
+\end{center}
+
+\textbf{Задание №3}
+
+Написать функцию, которая принимает два числа и возвращает
+список из этих чисел, расположенный по возрастанию.
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{lstlisting}[label=lst:task_3,caption=Код функции]
+    (defun f3 (x y)
+    (if (> x y) (list y x) (list x y)))
+\end{lstlisting}
+\end{center}
+
+\textbf{Задание №4}
+
+Написать функцию, которая принимает три числа и возвращает Т только
+тогда, когда первое число расположено между вторым и третьим.
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{lstlisting}[label=lst:task_4,caption=Код функции]
+    (defun f4 (x y z)
+    (if (or (and (> x y) (< x z))
+            (and (> x z) (< x y)))
+        T
+        Nil))
+\end{lstlisting}
+\end{center}
+
+\clearpage
+\textbf{Задание №5}
+
+Каков результат вычисления следующих выражений?
+\begin{enumerate}
+    \item (and 'fee 'fie 'foe) --- foe
+    \item (or 'fee 'fie 'foe) --- fee
+    \item (or nil 'fie 'foe) --- fie
+    \item (and nil 'fie 'foe) --- nil
+    \item (and (equal 'abc 'abc) 'yes) --- yes
+    \item (or (equal 'abc 'abc) 'yes) --- T
+\end{enumerate}
+
+\textbf{Задание №6}
+
+Написать предикат, который принимает два числа-аргумента и возвращает
+Т, если первое число не меньше второго.
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{lstlisting}[label=lst:task_6,caption=Код функции]
+    (defun p6 (x y)
+    (>= x y))
+\end{lstlisting}
+\end{center}
+
+\textbf{Задание №7}
+
+Какой из следующих двух вариантов предиката ошибочен и почему?
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{lstlisting}[label=lst:task_7,caption=Код функции]
+    (defun pred1 (x) 
+    (and (numberp x) (plusp x))) 
+    
+    (defun pred2 (x)
+    (and (plusp x)(numberp x)))
+\end{lstlisting}
+\end{center}
+
+Второй предикат --- ошибочный. Так как сначала надо проверить, передано ли число (numberp), а потом проверять, положительное ли оно (plusp).
+
+\clearpage
+\textbf{Задание №8}
+
+Решить задачу 4, используя для ее решения конструкции: только IF, только COND, только AND/OR.
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{lstlisting}[label=lst:task_8,caption=Код функций]
+    (defun f8_if (x y z)
+    (if (> x y)
+        (if (< x z)
+            T
+            Nil)
+        (if (> x z)
+            T
+            Nil)))
+    
+    (defun f8_cond (x y z)
+    (cond ((> x y)
+                (cond ((< x z) T)))
+          ((< x y)
+                (cond ((> x z) T)))
+          (T Nil)))
+    
+    (defun f8_and_or (x y z)
+    (or (and (> x y) (< x z))
+        (and (> x z) (< x y))))
+\end{lstlisting}
+\end{center}
+
+\textbf{Задание №9}
+
+Переписать функцию how-alike, приведенную в лекции и использующую COND, используя
+только конструкции IF, AND/OR.
+\begin{center}
+    \captionsetup{justification=raggedright,singlelinecheck=off}
+    \begin{lstlisting}[label=lst:task_9,caption=Код функций]
+    (Defun how_alike_ifhow_alike (x y)
+    (cond ((or (= x y) (equal x y)) 'the_same)
+          ((and (oddp x) (oddp y)) 'both_odd)
+          ((and (evenp x) (evenp y)) 'both_even)
+          (t 'difference) ) )
+    
+    ; Only with if, and/or
+    (defun how_alike_if (x y)
+    (if (or (= x y) (equal x y))
+            'the_same
+            (if (and (oddp x) (oddp y))
+                    'both_odd
+                    (if (and (evenp x) (evenp y))
+                            'both_even
+                            'difference))))
+\end{lstlisting}
+\end{center}
